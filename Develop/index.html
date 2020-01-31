@@ -32,13 +32,21 @@
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
-      <div class="row">
-        <div class="col-12 text-center">
-          Events:
-        </div>
+      <div class="row text-center">
+        <form class="col-12 text-center">
+          <p class="">
+            <label for="item">item</label>
+            <input type="text" name="item" id="item">
+            <button id="addItem">Add Item</button>
+          </p>
+          <p>
+          </p>
+          <ul id="items"></ul>
+        </form>
       </div>
     </div>
 
+    
 
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -56,6 +64,57 @@
       $(document).ready(function() {
         $('#date').append(`${m}`);
       })
+
+
+    let items = JSON.parse(localStorage.getItem('items')) || []
+
+//Code from todo app
+const renderItems = _ => {
+  $('#items').html('');
+  for (let i = 0; i < items.length; i++) {
+    let itemElem = $('<li>')
+    itemElem.addClass(items[i].isDone ? 'complete' : 'incomplete')
+    itemElem.html(`
+    ${items[i].text}
+    <button class="markDone" value="${i}">✓</button>
+    <button class="removeItem" value="${i}">X</button>
+    `)
+    $('#items').append(itemElem)
+  }
+}
+
+const markDone = index => {
+  items[index].isDone = !items[index].isDone
+  localStorage.setItem('items', JSON.stringify(items))
+  renderItems()
+}
+
+const removeItem = index => {
+  items.splice(index, 1)
+  localStorage.setItem('items', JSON.stringify(items))
+  renderItems()
+}
+
+$('#addItem').on('click', event => {
+  event.preventDefault()
+  items.push({
+    text: $('#item').val(),
+    isDone: false
+  })
+  localStorage.setItem('items', JSON.stringify(items))
+  renderItems()
+  $('#item').val('')
+})
+
+$(document).click(event => {
+  if (event.target.className === 'markDone') {
+    markDone(event.target.value)
+  } else if (event.target.className === 'removeItem') {
+    removeItem(event.target.value)
+  }
+})
+
+renderItems()
       
       
       // set variable with setinterval or whatever to get the clock to refresh. Maybe cut out the seconds and have it refresh every minute and not use seconds

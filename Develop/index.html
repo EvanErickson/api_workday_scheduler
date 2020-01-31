@@ -34,15 +34,12 @@
       <!-- Timeblocks go here -->
       <div class="row text-center">
         <form class="col-12 text-center">
-          <p class="">
-            <label for="item">item</label>
+            <label for="item">Item</label>
             <input type="text" name="item" id="item">
             <button id="addItem">Add Item</button>
-          </p>
-          <p>
-          </p>
-          <ul id="items"></ul>
-        </form>
+          </form>
+          <ul class="col-6" id="items"></ul>
+          <ul class="col-6" id="itemTimes"></ul>
       </div>
     </div>
 
@@ -63,6 +60,10 @@
 
       $(document).ready(function() {
         $('#date').append(`${m}`);
+      })
+
+      $('addItem').on('click', function() {
+        $('#itemTimes').append(`${m}`);
       })
 
 

@@ -75,3 +75,11 @@ textarea{
   font-weight: 900;
   padding-top: 10px;
 }
+
+ul {
+  list-style-type: none;
+}
+
+#addItem {
+  margin-top: 10px;
+}

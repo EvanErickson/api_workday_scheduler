@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .incomplete {
+      color: black;
+    }
+
+    .complete {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <form>
+    <p>
+      <label for="item">item</label>
+      <input type="text" name="item" id="item">
+    </p>
+    <p>
+      <button id="addItem">Add Item</button>
+    </p>
+  </form>
+  <ul id="items"></ul>
+
+
+
+
+<!--Jquery-->
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+
+
+<script>
+
+    let items = JSON.parse(localStorage.getItem('items')) || []
+
+    const renderItems = _ => {
+      $('#items').html('');
+      for (let i = 0; i < items.length; i++) {
+        let itemElem = $('<li>')
+        itemElem.addClass(items[i].isDone ? 'complete' : 'incomplete')
+        itemElem.html(`
+        ${items[i].text}
+        <button class="markDone" value="${i}">✓</button>
+        <button class="removeItem" value="${i}">X</button>
+        `)
+        $('#items').append(itemElem)
+      }
+    }
+
+    const markDone = index => {
+      items[index].isDone = !items[index].isDone
+      localStorage.setItem('items', JSON.stringify(items))
+      renderItems()
+    }
+
+    const removeItem = index => {
+      items.splice(index, 1)
+      localStorage.setItem('items', JSON.stringify(items))
+      renderItems()
+    }
+
+    $('#addItem').on('click', event => {
+      event.preventDefault()
+      items.push({
+        text: $('#item').val(),
+        isDone: false
+      })
+      localStorage.setItem('items', JSON.stringify(items))
+      renderItems()
+      $('#item').val('')
+    })
+
+    $(document).click(event => {
+      if (event.target.className === 'markDone') {
+        markDone(event.target.value)
+      } else if (event.target.className === 'removeItem') {
+        removeItem(event.target.value)
+      }
+    })
+
+    renderItems()
+
+  </script>
+</body>
+
+</html>

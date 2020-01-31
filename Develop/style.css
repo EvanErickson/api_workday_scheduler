@@ -69,3 +69,17 @@ textarea{
   font-size: 20px;
   transition: all .3s ease-in-out;
 }
+
+#date {
+  font-size: 24px;
+  font-weight: 900;
+  padding-top: 10px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+#addItem {
+  margin-top: 10px;
+}

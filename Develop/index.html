@@ -33,9 +33,11 @@
     <div class="container">
       <!-- Timeblocks go here -->
       <div class="row text-center">
-        <form class="col-12 text-center">
+        <form class="col-11 text-center">
             <label for="item">Item</label>
             <input type="text" name="item" id="item">
+            <input type="time" name="time" id="time">
+            <!--get value of the time and somehow sort it and make a nice calendar. Convert to miitary time-->
             <button id="addItem">Add Item</button>
           </form>
           <ul class="col-6" id="items"></ul>
@@ -50,7 +52,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <script>
-      let m = moment().format('MMMM Do YYYY, h:mm:ss a');
+      let m = moment().format('MMMM Do, YYYY');
         
 
       // // On load display date
@@ -58,9 +60,9 @@
       //   console.log('ping');
       // })
 
-      $(document).ready(function() {
-        $('#date').append(`${m}`);
-      })
+      // $(document).ready(function() {
+      //   $('#date').append(`${m}`);
+      // })
 
       // $('#addItem').on('click', function() {
       //   $('#itemTimes').append(`${m}`);
@@ -77,12 +79,11 @@ const renderItems = _ => {
   $('#itemTimes').html('');
   for (let i = 0; i < items.length; i++) {
     let itemElem = $('<li>')
-      let timeElem = $('<ul>')
+    let timeElem = $('<ul>')
     itemElem.addClass(items[i].isDone ? 'complete' : 'incomplete')
     itemElem.html(`
     ${items[i].text}
-    <button class="markDone" value="${i}">✓</button>
-    <button class="removeItem" value="${i}">X</button>
+    <button class="markDone" value="${i}">✓</button><button class="removeItem" value="${i}">X</button>
     `)
     timeElem.html(`
         <li>${items[i].timeStamp}</li>

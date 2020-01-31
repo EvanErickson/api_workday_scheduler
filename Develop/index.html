@@ -40,7 +40,7 @@
             <!--get value of the time and somehow sort it and make a nice calendar. Convert to miitary time-->
             <button id="addItem">Add Item</button>
           </form>
-          <ul class="col-6" id="items"></ul>
+          <ul class="col-6"  id="items"></ul>
           <ul class="col-6" id="itemTimes"></ul>
       </div>
     </div>
@@ -54,15 +54,9 @@
     <script>
       let m = moment().format('MMMM Do, YYYY');
         
-
-      // // On load display date
-      // $('#date').load(function () {
-      //   console.log('ping');
-      // })
-
-      // $(document).ready(function() {
-      //   $('#date').append(`${m}`);
-      // })
+      $(document).ready(function() {
+        $('#date').append(`${m}`);
+      })
 
       // $('#addItem').on('click', function() {
       //   $('#itemTimes').append(`${m}`);
